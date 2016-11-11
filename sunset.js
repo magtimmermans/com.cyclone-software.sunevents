@@ -245,26 +245,31 @@ const SunSet = module.exports = function SunSet() {
     }
 
     this.LoadMyEvents = function(callback) {
-        var myEvents = JSON.parse(Homey.manager("settings").get('myEvents'));
-       // Homey.log(myEvents);
-        if (myEvents) {
-            SunCalc.clearCustomTimes();
-            //clear sunsetSchedules
-            var keys = Object.keys(sunsetSchedules);
-            keys.forEach(function(k) {
-                var it = sunsetSchedules[k];
-                if (it.p==false) {
-                    delete sunsetSchedules[k];
-                }
-            });
+        var data=Homey.manager("settings").get('myEvents');
+        if (data) {
+            var myEvents = JSON.parse(Homey.manager("settings").get('myEvents'));
+        // Homey.log(myEvents);
+            if (myEvents) {
+                SunCalc.clearCustomTimes();
+                //clear sunsetSchedules
+                var keys = Object.keys(sunsetSchedules);
+                keys.forEach(function(k) {
+                    var it = sunsetSchedules[k];
+                    if (it.p==false) {
+                        delete sunsetSchedules[k];
+                    }
+                });
 
-            myEvents.forEach(function(item) {
-                SunCalc.addCustomTime(item.degrees, item.riseName, item.setName);
-                sunsetSchedules[item.riseName] ={ename:item.riseName,nlname:item.riseName,p:false};
-                sunsetSchedules[item.setName] ={ename:item.setName,nlname:item.setName,p:false};
-               // console.log(sunsetSchedules);
-            }) 
-            callback(true);
+                myEvents.forEach(function(item) {
+                    SunCalc.addCustomTime(item.degrees, item.riseName, item.setName);
+                    sunsetSchedules[item.riseName] ={ename:item.riseName,nlname:item.riseName,p:false};
+                    sunsetSchedules[item.setName] ={ename:item.setName,nlname:item.setName,p:false};
+                // console.log(sunsetSchedules);
+                }) 
+                callback(true);
+            } else
+                callback(false);
+
         } else
             callback(false);
     }
