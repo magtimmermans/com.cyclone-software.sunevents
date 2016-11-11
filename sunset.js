@@ -1,5 +1,5 @@
 const SunCalc = require('suncalc');
-const moment = require('moment');
+//const moment = require('moment');
 
 var sunsetSchedules = {
             'solarNoon' : {ename:'Solar Noon',nlname:'Hoogste zonnestand',p:true},
@@ -90,11 +90,11 @@ const SunSet = module.exports = function SunSet() {
         });
 
         Homey.manager('flow').on('trigger.sun_event', function (callback,args,state) {
-          Homey.log('trigger');
-          Homey.log(args);
-          Homey.log(state);
+         // Homey.log('trigger');
+         // Homey.log(args);
+         // Homey.log(state);
           if ( args.event.id == state.event && args.offset == state.offset) {
-                Homey.log('### Callback Oke:' + args.event.id);
+               // Homey.log('### Callback Oke:' + args.event.id);
                 callback(null,true);
                 return;
            } else {
@@ -103,8 +103,8 @@ const SunSet = module.exports = function SunSet() {
         });
 
         Homey.manager('flow').on('condition.cond_sun_event', function( callback, args, state ){
-                Homey.log('condition');
-                Homey.log(args);
+              //  Homey.log('condition');
+              //  Homey.log(args);
                 var result = selfie.testEvent(args.event.id,args.offset);
                 callback( null, result );
         }); 
@@ -246,7 +246,7 @@ const SunSet = module.exports = function SunSet() {
 
     this.LoadMyEvents = function(callback) {
         var myEvents = JSON.parse(Homey.manager("settings").get('myEvents'));
-        Homey.log(myEvents);
+       // Homey.log(myEvents);
         if (myEvents) {
             SunCalc.clearCustomTimes();
             //clear sunsetSchedules
@@ -262,7 +262,7 @@ const SunSet = module.exports = function SunSet() {
                 SunCalc.addCustomTime(item.degrees, item.riseName, item.setName);
                 sunsetSchedules[item.riseName] ={ename:item.riseName,nlname:item.riseName,p:false};
                 sunsetSchedules[item.setName] ={ename:item.setName,nlname:item.setName,p:false};
-                console.log(sunsetSchedules);
+               // console.log(sunsetSchedules);
             }) 
             callback(true);
         } else
