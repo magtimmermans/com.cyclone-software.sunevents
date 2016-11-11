@@ -41,9 +41,7 @@ const SunSet = module.exports = function SunSet() {
 
         this.registerTriggers();
         this.LoadMyEvents(function(result) {
-          if (result) {
              selfie.getTimes(true);
-          }   
         });
 
 
@@ -114,9 +112,9 @@ const SunSet = module.exports = function SunSet() {
             Homey.log('sunset:'+action);
             if (action == 'myEvents') {      
                 selfie.LoadMyEvents(function(result) {
-                    if (result) {
+                   // if (result) {
                         selfie.getTimes(true);
-                    }   
+                   // }   
                 });
             }
         });
