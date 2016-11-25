@@ -4,94 +4,102 @@
         "en": "Sun Events"
     },
     "description": {
-      "en": "Triggers you at certain positions of the sun.",
-      "nl": "Geeft triggers bij verschillende zon standen."
+        "en": "Triggers you at certain positions of the sun.",
+        "nl": "Geeft triggers bij verschillende zon standen."
     },
     "category": "tools",
     "images": {
-      "large": "./assets/images/large.jpg",
-      "small": "./assets/images/small.jpg"
+        "large": "./assets/images/large.jpg",
+        "small": "./assets/images/small.jpg"
     },
-    "version": "0.0.8",
+    "version": "0.1.0",
     "compatibility": "0.x || 1.x",
     "author": {
         "name": "Marcel Timmermans",
         "email": "marcel@timmermans.us"
     },
     "permissions": [
-         "homey:manager:geolocation"
+        "homey:manager:geolocation"
     ],
     "flow": {
-        "triggers": [
-                {
-                    "id": "sun_event",
-                    "title": {
-                        "en": "Sun Event",
-                        "nl": "Zonstanden events"
-                    },
-                    "tokens": [
-                                    {
-                                        "name": "event",
-                                        "title": {
-                                            "en": "Event",
-                                            "nl": "Event"
-                                        }
-                                    }
-                                ],
-                    "args": [
-                            {
-                                "name": "event",
-                                "type": "autocomplete",
-                                "placeholder": {
-                                "en": "Event",
-                                    "nl": "Event"
-                                }
-                            },
-                            {
-                                "name": "offset",
-                                "type": "number",
-                                "min" : "-60",
-                                "max" : "60",
-                                "step": "1",
-                                "value": "0",
-                                "placeholder": {
-                                    "en": "Offset in minutes",
-                                    "nl": "Offset in minuten"
-                                    }
-                            }
-                            ]  
-                }
-        ],
-        "conditions": [
-            {
-                "id": "cond_sun_event",
-                "title": {
-                "en": "It !{{is|isn't}} after ",
-                "nl": "Het !{{is|is niet}} na "
-                },
-                "args": [
-                {
+        "triggers": [{
+            "id": "sun_event",
+            "title": {
+                "en": "Sun Event",
+                "nl": "Zonstanden events"
+            },
+            "tokens": [{
                     "name": "event",
-                    "type": "autocomplete",
-                    "placeholder": {
-                    "en": "Event",
+                    "title": {
+                        "en": "Event",
                         "nl": "Event"
                     }
                 },
-                 {
+                {
+                    "name": "se_time",
+                    "title": {
+                        "en": "Time",
+                        "nl": "Tijd"
+                    }
+                },
+                {
+                    "name": "se_date",
+                    "title": {
+                        "en": "Date",
+                        "nl": "Datum"
+                    }
+                }
+            ],
+            "args": [{
+                    "name": "event",
+                    "type": "autocomplete",
+                    "placeholder": {
+                        "en": "Event",
+                        "nl": "Event"
+                    }
+                },
+                {
                     "name": "offset",
                     "type": "number",
-                    "min" : "-60",
-                    "max" : "60",
+                    "min": "-60",
+                    "max": "60",
                     "step": "1",
                     "value": "0",
                     "placeholder": {
                         "en": "Offset in minutes",
                         "nl": "Offset in minuten"
-                        }
-                }]  
-            }
-        ]
-      
+                    }
+                }
+            ]
+        }],
+        "conditions": [{
+            "id": "cond_sun_event",
+            "title": {
+                "en": "It !{{is|isn't}} after ",
+                "nl": "Het !{{is|is niet}} na "
+            },
+            "args": [{
+                    "name": "event",
+                    "type": "autocomplete",
+                    "placeholder": {
+                        "en": "Event",
+                        "nl": "Event"
+                    }
+                },
+                {
+                    "name": "offset",
+                    "type": "number",
+                    "min": "-60",
+                    "max": "60",
+                    "step": "1",
+                    "value": "0",
+                    "placeholder": {
+                        "en": "Offset in minutes",
+                        "nl": "Offset in minuten"
+                    }
+                }
+            ]
+        }]
+
     }
 }

@@ -1,4 +1,4 @@
-# Sun Events
+# Sun Events (replace Sunrise App)
 
 Sun Events is an app the has several triggers to certain positions of the sun. It make use of suncalc from 'Vladimir Agafonkin'. The following triggers are possible:
 
@@ -18,7 +18,14 @@ Sun Events is an app the has several triggers to certain positions of the sun. I
 - dawn (morning nautical twilight ends, morning civil twilight starts)
 - Options to put your own set/rise position of the sun
 
+## TO-DO
+- Localication needs to be improved. During time more knowlegde from NodeJS and need to parts cleanup.
+- Automatic refresh of settings page when events/triggers are refreshed.
+
 ## Change Log:
+
+### v.0.1.0
+App was refused at app-store. Rebuild app partly but leave the dynamic completion list in it because you can easily at your own events.
 
 ### v 0.0.8
 Complete rebuild of the app. Also rename it from Sunrise to SunEvents. The old app will not further developed and this app can replace the old SunRise app. The reason for this is that your existing workflows will not brake and you can change whenever you like. 

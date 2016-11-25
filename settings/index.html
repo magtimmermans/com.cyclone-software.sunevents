@@ -1,5 +1,6 @@
 ﻿<!doctype html>
 <html>
+
 <head>
     <link rel="stylesheet" type="text/css" href="bootstrap.css" />
     <link rel="stylesheet" type="text/css" href="xeditable.min.css" />
@@ -13,10 +14,11 @@
 </head>
 
 <body>
-     <div ng-app="suneventsApp" ng-controller="mySunEvents" id="mysunevents">
+    <div ng-app="suneventsApp" ng-controller="mySunEvents" id="mysunevents">
         <ul class="nav nav-tabs">
             <li class="active"><a data-toggle="tab" href="#home">My Sun Events</a></li>
             <li><a data-toggle="tab" href="#menu1">Event Times</a></li>
+            <li><a data-toggle="tab" href="#menu2">Trigger Times</a></li>
         </ul>
 
         <div class="tab-content">
@@ -25,67 +27,78 @@
                 <p>Here you can define your own person Events. The events are based on degrees of the sun and you need to set the rise and set name.</p>
                 <table class="table table-bordered table-hover table-condensed">
                     <tr style="font-weight: bold">
-                    <td style="width:25%">degrees (-90..90)</td>
-                    <td style="width:25%">Rise name</td>
-                    <td style="width:25%">Set Name</td>
-                    <td style="width:25%">Edit</td>
+                        <td style="width:25%">degrees (-90..90)</td>
+                        <td style="width:25%">Rise name</td>
+                        <td style="width:25%">Set Name</td>
+                        <td style="width:25%">Edit</td>
                     </tr>
                     <tr ng-repeat="event in events">
-                    <td>
-                        <span editable-number="event.degrees" e-name="degrees" e-form="rowform" e-min="-90" e-max="90"  onbeforesave="checkDegrees($data)" e-required>
+                        <td>
+                            <span editable-number="event.degrees" e-name="degrees" e-form="rowform" e-min="-90" e-max="90" onbeforesave="checkDegrees($data)" e-required>
                         {{ event.degrees }}
                         </span>
-                    </td>
-                    <td>
-                        <span editable-text="event.riseName" e-name="riseName" e-form="rowform" onbeforesave="checkNotEmpty($data)" e-required>
+                        </td>
+                        <td>
+                            <span editable-text="event.riseName" e-name="riseName" e-form="rowform" onbeforesave="checkNotEmpty($data)" e-required>
                         {{ event.riseName }}
                         </span>
-                    </td>
-                    <td>
-                        <span editable-text="event.setName" e-name="setName" e-form="rowform" onbeforesave="checkNotEmpty($data)" e-required>
+                        </td>
+                        <td>
+                            <span editable-text="event.setName" e-name="setName" e-form="rowform" onbeforesave="checkNotEmpty($data)" e-required>
                         {{ event.setName }}
                         </span>
-                    </td>
-                    <td style="white-space: nowrap">
-                        <!-- form -->
-                        <form editable-form name="rowform" onbeforesave="saveEvent($data, event.id)" onaftersave="sendToHomey(events)" ng-show="rowform.$visible" class="form-buttons form-inline" shown="inserted == event">
-                        <button type="submit" ng-disabled="rowform.$waiting" class="btn btn-primary">
+                        </td>
+                        <td style="white-space: nowrap">
+                            <!-- form -->
+                            <form editable-form name="rowform" onbeforesave="saveEvent($data, event.id)" onaftersave="sendToHomey(events)" ng-show="rowform.$visible" class="form-buttons form-inline" shown="inserted == event">
+                                <button type="submit" ng-disabled="rowform.$waiting" class="btn btn-primary">
                             save
                         </button>
-                        <button type="button" ng-disabled="rowform.$waiting" ng-click="rowform.$cancel()" class="btn btn-default">
+                                <button type="button" ng-disabled="rowform.$waiting" ng-click="rowform.$cancel()" class="btn btn-default">
                             cancel
                         </button>
-                        </form>
-                        <div class="buttons" ng-show="!rowform.$visible">
-                        <button class="btn btn-primary" ng-click="rowform.$show()">edit</button>
-                        <button class="btn btn-danger" ng-click="removeEvent($index)">del</button>
-                        </div>  
-                    </td>
+                            </form>
+                            <div class="buttons" ng-show="!rowform.$visible">
+                                <button class="btn btn-primary" ng-click="rowform.$show()">edit</button>
+                                <button class="btn btn-danger" ng-click="removeEvent($index)">del</button>
+                            </div>
+                        </td>
                     </tr>
                 </table>
 
-                <button class="btn btn-default" ng-click="addEvent()">Add row</button>           
+                <button class="btn btn-default" ng-click="addEvent()">Add row</button>
             </div>
             <div id="menu1" class="tab-pane fad">
                 <h3>Event Times</h3>
                 <p>An overview of all possible events you can use in the trigger/condition.</p>
                 <table class="table table-bordered table-hover table-condensed">
                     <tr ng-repeat="(key,value) in myEventsTimes | orderObjectBy:'name':false">
-                    <td><span>{{ value.name }}</span></td>
-                    <td><span>{{ value.date | date:'yyyy-MM-dd HH:mm:ss' }}</span></td>
+                        <td><span>{{ value.name }}</span></td>
+                        <td><span>{{ value.date | date:'yyyy-MM-dd HH:mm:ss' }}</span></td>
                     </tr>
-                </table>                
+                </table>
             </div>
+            <div id="menu2" class="tab-pane fad">
+                <h3>Trigger Times</h3>
+                <p>An overview of all active triggers.</p>
+                <table class="table table-bordered table-hover table-condensed">
+                    <tr ng-repeat="(key,value) in myTriggerTimes | orderObjectBy:'name':false">
+                        <td><span>{{ value.name }}</span></td>
+                        <td><span>{{ value.date | date:'yyyy-MM-dd HH:mm:ss' }}</span></td>
+                    </tr>
+                </table>
             </div>
         </div>
-<script>
-    // Initialize Homey
-    function onHomeyReady() {
-       Homey.ready();
-       var scope = angular.element($("#mysunevents")).scope();
-       console.log('SetHomey' + scope);
-       scope.setHomey(Homey);
-    }
-</script>
+    </div>
+    <script>
+        // Initialize Homey
+        function onHomeyReady() {
+            Homey.ready();
+            var scope = angular.element($("#mysunevents")).scope();
+            console.log('SetHomey' + scope);
+            scope.setHomey(Homey);
+        }
+    </script>
 </body>
+
 </html>
