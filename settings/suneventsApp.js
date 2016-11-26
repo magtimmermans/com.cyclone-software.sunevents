@@ -21,7 +21,7 @@ myApp.filter('orderObjectBy', function() {
 });
 
 
-myApp.controller('mySunEvents', function($scope, $filter, $http) {
+myApp.controller('mySunEvents', function($scope, $filter) {
     var temp;
 
     $scope.events = [];
@@ -32,6 +32,11 @@ myApp.controller('mySunEvents', function($scope, $filter, $http) {
 
     $scope.setHomey = function(homey) {
         console.log('setHomey called');
+        $scope.editTxt = __('edit');
+        $scope.delTxt = __('del');
+        $scope.cancelTxt = __('cancel');
+        $scope.saveTxt = __('save');
+        
         $scope.homey = homey;
         $scope.homey.get('myEvents', function(err, newEvents) {
             console.log(newEvents);

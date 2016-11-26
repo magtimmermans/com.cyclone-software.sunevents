@@ -1,1 +1,16 @@
-{}
+{
+ "personalEvents": "Here you can define your own person Events. The events are based on degrees of the sun and you need to set the rise and set name.",
+ "mysunevents" : "My Sun Events",
+ "eventTimes" : "Event Times",
+ "triggerTimes" : "Trigger Times",
+ "riseName" : "Rise Name",
+ "setName" : "Set Name",
+ "degrees" : "Degrees (-90..90)",
+ "edit" : "Edit",
+ "save" : "Save",
+ "cancel" : "Cancel",
+ "addRow" : "Add Row",
+ "del" : "Delete",
+ "eventTimesIntro" : "An overview of all possible events you can use in the trigger/condition.",
+ "triggerTimesIntro" : "An overview of all active triggers."
+}

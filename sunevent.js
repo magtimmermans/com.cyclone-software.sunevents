@@ -24,12 +24,18 @@ var trigger_sorter = function(a, b) {
     return a.compare(b);
 };
 
+var autocompleteSorter = function(a,b) {
+    if(a.name < b.name) return -1;
+    if(a.name > b.name) return 1;
+    return 0;
+}
+
 /**
- * The SunSet object
+ * The SunEvent object
  */
-const SunSet = module.exports = function SunSet() {
-    if (!(this instanceof SunSet)) {
-        return new SunSet();
+const SunEvent = module.exports = function SunEvent() {
+    if (!(this instanceof SunEvent)) {
+        return new SunEvent();
     }
 };
 
@@ -73,6 +79,8 @@ const SunSet = module.exports = function SunSet() {
                 myItems.push(e);
             });
 
+            myItems.sort(autocompleteSorter);
+
             // console.log(myItems);
 
             callback(null, myItems); // err, results
@@ -92,26 +100,19 @@ const SunSet = module.exports = function SunSet() {
                 myItems.push(e);
             });
 
+            myItems.sort(autocompleteSorter);
             // console.log(myItems);
 
             callback(null, myItems); // err, results
         });
 
         Homey.manager('flow').on('trigger.sun_event', function(callback, args, state) {
-            // console.log('==========================================')
-            // Homey.log('flow trigger active');
-            // Homey.log('ARGS:');
-            // console.log(args);
-            // Homey.log('STATE:');
-            // console.log(state);
-            // console.log('==========================================')
             if (args.event.id == state.event && args.offset == state.offset) {
-                Homey.log('### Callback Oke:' + args.event.id);
                 callback(null, true);
-                return;
             } else {
                 callback(null, false); // true to make the flow continue, or false to abort
             }
+            return;
         });
 
         Homey.manager('flow').on('condition.cond_sun_event', function(callback, args, state) {
@@ -195,21 +196,15 @@ const SunSet = module.exports = function SunSet() {
     }
 
     this.execute = function(te) {
-        console.log('#######################################################')
-        Homey.log('execute:' + te.id);
+        // Homey.log('#######################################################')
+        // Homey.log('execute:' + te.id);
         var tokens = { 'event': selfie.getSunsetScheduleName(te.id), 'se_time': moment.unix(te.theTime.epoch).format('LT'), 'se_date': moment.unix(te.theTime.epoch).format('L') };
         var state = { 'event': te.id, 'offset': te.theTime.offset };
-        console.log('tokens');
-        console.log(tokens);
-        console.log('state');
-        console.log(state);
-        console.log('#######################################################')
         Homey.manager('flow').trigger('sun_event', tokens, state);
     }
 
     this.scheduler = function() {
 
-        //  console.log("_scheduler", selfie._timer_id);
         if (selfie._timer_id) {
             clearTimeout(selfie._timer_id);
         }
@@ -221,10 +216,6 @@ const SunSet = module.exports = function SunSet() {
 
         // first trigger on top
         selfie.activeTriggers.sort(trigger_sorter);
-
-        // selfie.activeTriggers.forEach(function(item) {
-        //     console.log(item.id);
-        // });
 
         while (true) {
             var te = selfie.activeTriggers[0];
@@ -265,7 +256,7 @@ const SunSet = module.exports = function SunSet() {
                 //  console.log('check');
                 selfie._timer_id = setTimeout(check, 60 * 1000);
             } else {
-                console.log('less minute');
+                //console.log('less minute');
                 selfie._timer_id = setTimeout(function() {
                     selfie.scheduler();
                 }, delta * 1000);
@@ -286,13 +277,15 @@ const SunSet = module.exports = function SunSet() {
         var msToMidnight = night.getTime() - now.getTime();
 
         setTimeout(function() {
-            selfie.sunEvents = selfie.getTimes(true); //      <-- This is the function being called at midnight.
-            selfie.registerTriggers();
+            // do some work at midnight
+            selfie.sunEvents = selfie.getTimes(true); 
+            selfie.registerTriggers(); 
             selfie.resetAtMidnight(); //      Then, reset again next midnight.
         }, msToMidnight);
     }
 
     this.getSunsetScheduleName = function(id) {
+        // maybe this can be smarter using localization strings
         return (lang == 'nl' ? sunsetSchedules[id].nlname : sunsetSchedules[id].ename);
     }
 
@@ -324,9 +317,9 @@ const SunSet = module.exports = function SunSet() {
                 e.date = moment(eventTimes[item]).format('LLL');
                 eventTimesFormated[item] = e;
             });
-            Homey.log(eventTimesFormated);
+            //Homey.log(eventTimesFormated);
             Homey.manager("settings").set('myEventsTimes', eventTimesFormated);
-            console.log('sunset:myEventsTimes saved');
+            //console.log('sunset:myEventsTimes saved');
         }
         return eventTimes;
     }
@@ -335,7 +328,6 @@ const SunSet = module.exports = function SunSet() {
         var data = Homey.manager("settings").get('myEvents');
         if (data) {
             var myEvents = JSON.parse(Homey.manager("settings").get('myEvents'));
-            // Homey.log(myEvents);
             if (myEvents) {
                 SunCalc.clearCustomTimes();
                 //clear sunsetSchedules
@@ -351,7 +343,6 @@ const SunSet = module.exports = function SunSet() {
                     SunCalc.addCustomTime(item.degrees, item.riseName, item.setName);
                     sunsetSchedules[item.riseName] = { ename: item.riseName, nlname: item.riseName, p: false };
                     sunsetSchedules[item.setName] = { ename: item.setName, nlname: item.setName, p: false };
-                    // console.log(sunsetSchedules);
                 })
                 callback(true);
             } else
@@ -380,9 +371,10 @@ const SunSet = module.exports = function SunSet() {
         return new Date();
     };
 
-}).call(SunSet.prototype);
+}).call(SunEvent.prototype);
 
 
+// needed for testing
 function randomInt(low, high) {
     return Math.floor(Math.random() * (high - low) + low);
 }

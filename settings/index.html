@@ -4,11 +4,12 @@
 <head>
     <link rel="stylesheet" type="text/css" href="bootstrap.css" />
     <link rel="stylesheet" type="text/css" href="xeditable.min.css" />
+    <!--<script type="text/javascript" src="/manager/webserver/assets/js/jquery.js"></script>-->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+    <!--<script type="text/javascript" src="/manager/webserver/assets/js/angular.js"></script>-->
     <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.2.23/angular.min.js"></script>
     <script src="https://code.angularjs.org/1.2.23/angular-mocks.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
-    <!--<script type="text/javascript" src="/manager/webserver/assets/js/angular.js"></script>-->
     <script type="text/javascript" src="xeditable.min.js"></script>
     <script type="text/javascript" src="suneventsApp.js"></script>
 </head>
@@ -16,21 +17,21 @@
 <body>
     <div ng-app="suneventsApp" ng-controller="mySunEvents" id="mysunevents">
         <ul class="nav nav-tabs">
-            <li class="active"><a data-toggle="tab" href="#home">My Sun Events</a></li>
-            <li><a data-toggle="tab" href="#menu1">Event Times</a></li>
-            <li><a data-toggle="tab" href="#menu2">Trigger Times</a></li>
+            <li class="active"><a data-toggle="tab" href="#home" data-i18n="mysunevents"></a></li>
+            <li><a data-toggle="tab" href="#menu1" data-i18n="eventTimes"></a></li>
+            <li><a data-toggle="tab" href="#menu2" data-i18n="triggerTimes"></a></li>
         </ul>
 
         <div class="tab-content">
             <div id="home" class="tab-pane fade in active">
-                <h3>My Sun Events</h3>
-                <p>Here you can define your own person Events. The events are based on degrees of the sun and you need to set the rise and set name.</p>
+                <h3 data-i18n="mysunevents"></h3>
+                <p data-i18n="personalEvents"></p>
                 <table class="table table-bordered table-hover table-condensed">
                     <tr style="font-weight: bold">
-                        <td style="width:25%">degrees (-90..90)</td>
-                        <td style="width:25%">Rise name</td>
-                        <td style="width:25%">Set Name</td>
-                        <td style="width:25%">Edit</td>
+                        <td style="width:25%" data-i18n="degrees"></td>
+                        <td style="width:25%" data-i18n="riseName"></td>
+                        <td style="width:25%" data-i18n="setName"></td>
+                        <td style="width:25%" data-i18n="edit"></td>
                     </tr>
                     <tr ng-repeat="event in events">
                         <td>
@@ -51,26 +52,22 @@
                         <td style="white-space: nowrap">
                             <!-- form -->
                             <form editable-form name="rowform" onbeforesave="saveEvent($data, event.id)" onaftersave="sendToHomey(events)" ng-show="rowform.$visible" class="form-buttons form-inline" shown="inserted == event">
-                                <button type="submit" ng-disabled="rowform.$waiting" class="btn btn-primary">
-                            save
-                        </button>
-                                <button type="button" ng-disabled="rowform.$waiting" ng-click="rowform.$cancel()" class="btn btn-default">
-                            cancel
-                        </button>
+                                <button type="submit" ng-disabled="rowform.$waiting" class="btn btn-primary">{{ saveTxt }}</button>
+                                <button type="button" ng-disabled="rowform.$waiting" ng-click="rowform.$cancel()" class="btn btn-default">{{ cancelTxt }}</button>
                             </form>
                             <div class="buttons" ng-show="!rowform.$visible">
-                                <button class="btn btn-primary" ng-click="rowform.$show()">edit</button>
-                                <button class="btn btn-danger" ng-click="removeEvent($index)">del</button>
+                                <button class="btn btn-primary" ng-click="rowform.$show()"> {{ editTxt }}</button>
+                                <button class="btn btn-danger" ng-click="removeEvent($index)">{{ delTxt }}</button>
                             </div>
                         </td>
                     </tr>
                 </table>
 
-                <button class="btn btn-default" ng-click="addEvent()">Add row</button>
+                <button class="btn btn-default" ng-click="addEvent()" data-i18n="addRow"></button>
             </div>
             <div id="menu1" class="tab-pane fad">
-                <h3>Event Times</h3>
-                <p>An overview of all possible events you can use in the trigger/condition.</p>
+                <h3 data-i18n="eventTimes"></h3>
+                <p data-i18n="eventTimesIntro"></p>
                 <table class="table table-bordered table-hover table-condensed">
                     <tr ng-repeat="(key,value) in myEventsTimes | orderObjectBy:'name':false">
                         <td><span>{{ value.name }}</span></td>
@@ -79,8 +76,8 @@
                 </table>
             </div>
             <div id="menu2" class="tab-pane fad">
-                <h3>Trigger Times</h3>
-                <p>An overview of all active triggers.</p>
+                <h3 data-i18n="triggerTimes"></h3>
+                <p data-i18n="triggerTimesIntro"></p>
                 <table class="table table-bordered table-hover table-condensed">
                     <tr ng-repeat="(key,value) in myTriggerTimes | orderObjectBy:'name':false">
                         <td><span>{{ value.name }}</span></td>

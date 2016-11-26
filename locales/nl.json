@@ -1,0 +1,16 @@
+{
+ "personalEvents": "Hier kan je je persoonlijke gebeurtenissen defineren. Deze gebeurtenissen zijn gebaseerd op de zonnestand in graden. Hiermee stel je dus een opgaande en neergaande zon gebeurtenis in.",
+ "mysunevents" : "Mijn zonnestanden gebeurtenissen",
+ "eventTimes" : "Event tijden",
+ "triggerTimes" : "Trigger tijden",
+ "riseName" : "Opgaande stand naam",
+ "setName" : "Neergaande stand naam",
+ "degrees" : "Graden (-90..90)",
+ "edit" : "Bewerken",
+ "save" : "Bewaren",
+ "cancel" : "Annuleren",
+ "addRow" : "Regel toevoegen",
+ "del" : "Verwijderen",
+ "eventTimesIntro" : "Een overzicht van alle mogelijke gebeurtinissen die je kan gebruiken in 'Als..' en 'En..' in de workflow",
+ "triggerTimesIntro" : "Een overzicht van alle active 'Als..' (triggers) gebeurtenissen."
+}

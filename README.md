@@ -19,10 +19,12 @@ Sun Events is an app the has several triggers to certain positions of the sun. I
 - Options to put your own set/rise position of the sun
 
 ## TO-DO
-- Localication needs to be improved. During time more knowlegde from NodeJS and need to parts cleanup.
 - Automatic refresh of settings page when events/triggers are refreshed.
 
 ## Change Log:
+
+### v.0.1.1
+Improved Localization
 
 ### v.0.1.0
 App was refused at app-store. Rebuild app partly but leave the dynamic completion list in it because you can easily at your own events.

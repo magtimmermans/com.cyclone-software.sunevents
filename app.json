@@ -5,15 +5,15 @@
     },
     "description": {
         "en": "Triggers you at certain positions of the sun.",
-        "nl": "Geeft triggers bij verschillende zon standen."
+        "nl": "Bij diverse zonnestanden kunt u triggers maken, u kunt ook uw eigen events defineren."
     },
     "category": "tools",
     "images": {
         "large": "./assets/images/large.jpg",
         "small": "./assets/images/small.jpg"
     },
-    "version": "0.1.0",
-    "compatibility": "0.x || 1.x",
+    "version": "0.1.1",
+    "compatibility": "1.x",
     "author": {
         "name": "Marcel Timmermans",
         "email": "marcel@timmermans.us"
@@ -25,8 +25,8 @@
         "triggers": [{
             "id": "sun_event",
             "title": {
-                "en": "Sun Event",
-                "nl": "Zonstanden events"
+                "en": "Sun Events",
+                "nl": "Zonnestanden events"
             },
             "tokens": [{
                     "name": "event",
