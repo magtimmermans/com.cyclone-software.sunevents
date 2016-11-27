@@ -1,4 +1,3 @@
-"use strict";
 
 const SunEvent = require('./sunevent');
 

@@ -1,5 +1,5 @@
-const SunCalc = require('suncalc');
-const moment = require("moment");
+var SunCalc = require('suncalc');
+var moment = require("moment");
 var TriggerEvent = require('./triggerEvent').TriggerEvent;
 
 var sunsetSchedules = {
