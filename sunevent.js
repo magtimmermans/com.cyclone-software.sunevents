@@ -1,6 +1,7 @@
 var SunCalc = require('suncalc');
 var moment = require("moment");
 var TriggerEvent = require('./triggerEvent').TriggerEvent;
+const execFile = require('child_process').execFile;
 
 var sunsetSchedules = {
     'solarNoon': { ename: 'Solar Noon', nlname: 'Hoogste zonnestand', p: true },
@@ -24,9 +25,9 @@ var trigger_sorter = function(a, b) {
     return a.compare(b);
 };
 
-var autocompleteSorter = function(a,b) {
-    if(a.name < b.name) return -1;
-    if(a.name > b.name) return 1;
+var autocompleteSorter = function(a, b) {
+    if (a.name < b.name) return -1;
+    if (a.name > b.name) return 1;
     return 0;
 }
 
@@ -46,6 +47,15 @@ const SunEvent = module.exports = function SunEvent() {
     var activeTriggers = [];
 
     var lang = Homey.manager('i18n').getLanguage();
+
+    // unable to get locale() information like en-gb
+    // than make a hack
+
+    if (lang == 'en') {
+        // asume it is Great Britain
+        lang = 'en-gb';
+    }
+
     moment.locale(lang);
 
     this.init = function() {
@@ -134,6 +144,7 @@ const SunEvent = module.exports = function SunEvent() {
                 });
             }
         });
+        console.log(moment().format('L'));
     };
 
     this.registerTriggers = function() {
@@ -278,8 +289,8 @@ const SunEvent = module.exports = function SunEvent() {
 
         setTimeout(function() {
             // do some work at midnight
-            selfie.sunEvents = selfie.getTimes(true); 
-            selfie.registerTriggers(); 
+            selfie.sunEvents = selfie.getTimes(true);
+            selfie.registerTriggers();
             selfie.resetAtMidnight(); //      Then, reset again next midnight.
         }, msToMidnight);
     }
