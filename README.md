@@ -23,6 +23,9 @@ Sun Events is an app the has several triggers to certain positions of the sun. I
 
 ## Change Log:
 
+### v 0.1.4
+small bugfix what could crash the app
+
 ### v.0.1.3
 Made a fix for the correct locale in English.
 
