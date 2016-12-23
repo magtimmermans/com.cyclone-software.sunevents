@@ -253,8 +253,9 @@ const SunEvent = module.exports = function SunEvent() {
         selfie.activeTriggers.sort(trigger_sorter);
 
         var te = selfie.activeTriggers[0];
-        console.log(te.id + ' delta:' + te.compare());
-
+        if (te) {
+            console.log(te.id + ' delta:' + te.compare());
+        }
         //when something is running kill it
         if (selfie._timer_id) {
             clearTimeout(selfie._timer_id);
