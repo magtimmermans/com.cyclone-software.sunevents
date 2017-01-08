@@ -2,6 +2,8 @@ var SunCalc = require('suncalc');
 var moment = require("moment");
 var TriggerEvent = require('./triggerEvent').TriggerEvent;
 const execFile = require('child_process').execFile;
+var tokens = [];
+var specialTokens = [];
 
 var sunsetSchedules = {
     'solarNoon': { ename: 'Solar Noon', nlname: 'Hoogste zonnestand', p: true },
@@ -18,6 +20,12 @@ var sunsetSchedules = {
     'night': { ename: 'Night starts', nlname: 'Nacht begint', p: true },
     'goldenHourEnd': { ename: 'Morning golden hour  ends', nlname: 'Einde Ochtend gouden uur', p: true },
     'goldenHour': { ename: 'Evening golden hour starts', nlname: 'Begin avond gouden uur', p: true }
+}
+
+var specialVariables = {
+    'astronomicalDark': { ename: 'Astronomical Dark', nlname: 'Astronomisch Donker' },
+    'nauticalDark': { ename: 'Nautical Dark', nlname: 'Nautische Donker' },
+    'civilDark': { ename: 'Civil Dark', nlname: 'Schemering' },
 }
 
 
@@ -66,6 +74,7 @@ const SunEvent = module.exports = function SunEvent() {
         Homey.log(selfie.sunEvents);
 
         this.registerTriggers();
+        this.registerVars();
 
         this.LoadMyEvents(function(result) {
             selfie.sunEvents = selfie.getTimes(true);
@@ -145,6 +154,11 @@ const SunEvent = module.exports = function SunEvent() {
             }
         });
         console.log(moment().format('L'));
+
+        // update specialvars every minute , should be ok (not exact time)
+        setInterval(function() {
+            selfie.updateSpecialVars();
+        }, 1 * 60 * 1000); // Every minute, maybe not too resource friendly...
     };
 
     this.registerTriggers = function() {
@@ -253,9 +267,9 @@ const SunEvent = module.exports = function SunEvent() {
         selfie.activeTriggers.sort(trigger_sorter);
 
         var te = selfie.activeTriggers[0];
-        if (te) {
-            console.log(te.id + ' delta:' + te.compare());
-        }
+        // if (te) {
+        //     console.log(te.id + ' delta:' + te.compare());
+        // }
         //when something is running kill it
         if (selfie._timer_id) {
             clearTimeout(selfie._timer_id);
@@ -292,8 +306,69 @@ const SunEvent = module.exports = function SunEvent() {
             // do some work at midnight
             selfie.sunEvents = selfie.getTimes(true);
             selfie.registerTriggers();
+            selfie.updateVars();
             selfie.resetAtMidnight(); //      Then, reset again next midnight.
         }, msToMidnight);
+    }
+
+    this.registerVars = function() {
+        bySortedValue(selfie.sunEvents, function(key, value) {
+            var name = selfie.getSunsetScheduleName(key);
+            Homey.manager('flow').registerToken(key, {
+                type: 'string',
+                title: name
+            }, function(err, token) {
+                if (err) return console.error('registerToken error:', err);
+                console.log(token);
+                var date = selfie.sunEvents[token.id];
+                var time = moment(date).format('HH:mm');
+                token.setValue(time, function(err) {
+                    if (err) return console.error('setValue error:', err);
+                });
+                tokens.push(token);
+            });
+        })
+        GetSpecialVars(selfie.sunEvents, function(key, value) {
+            var name = (lang == 'nl' ? specialVariables[key].nlname : specialVariables[key].ename)
+            Homey.manager('flow').registerToken(key, {
+                type: 'boolean',
+                title: name
+            }, function(err, token) {
+                if (err) return console.error('registerToken error:', err);
+                token.setValue(value, function(err) {
+                    if (err) return console.error('setValue error:', err);
+                });
+                specialTokens.push(token);
+            });
+        })
+    }
+
+    this.updateVars = function() {
+        tokens.forEach(function(token) {
+            if (token) {
+                var date = selfie.sunEvents[token.id];
+                var time = moment(date).format('HH:mm');
+                token.setValue(time,
+                    function(err) {
+                        if (err) return console.error('setValue error:', err);
+                    });
+            }
+        })
+    }
+
+    this.updateSpecialVars = function() {
+        GetSpecialVars(selfie.sunEvents, function(key, value) {
+            console.log(key);
+            console.log(value);
+            var token = specialTokens.filter(function(value) { return value.id == key; })
+            console.log(token);
+            if (token) {
+                token[0].setValue(value,
+                    function(err) {
+                        if (err) return console.error('setValue error:', err);
+                    });
+            }
+        })
     }
 
     this.getSunsetScheduleName = function(id) {
@@ -329,7 +404,7 @@ const SunEvent = module.exports = function SunEvent() {
                 e.date = moment(eventTimes[item]).format('LLL');
                 eventTimesFormated[item] = e;
             });
-            //Homey.log(eventTimesFormated);
+            Homey.log(eventTimesFormated);
             Homey.manager("settings").set('myEventsTimes', eventTimesFormated);
             //console.log('sunset:myEventsTimes saved');
         }
@@ -401,4 +476,41 @@ function padding_right(s, c, n) {
         s += c;
     }
     return s;
+}
+
+function bySortedValue(obj, callback, context) {
+    var items = [];
+
+    for (var key in obj) items.push([key, obj[key]]);
+
+    items.sort(function(a, b) { return a[1] < b[1] ? 1 : a[1] > b[1] ? -1 : 0 });
+
+    var length = items.length;
+    while (length--) callback.call(items, items[length][0], items[length][1]);
+}
+
+function GetSpecialVars(items, callback) {
+    var specialVars = {};
+    var now = moment();
+    if (moment().isBetween(items['nauticalDawn'], items['nauticalDusk'])) {
+        specialVars['astronomicalDark'] = false;
+    } else {
+        specialVars['astronomicalDark'] = true;
+    }
+
+    if (moment().isBetween(items['dawn'], items['dusk'])) {
+        specialVars['nauticalDark'] = false;
+    } else {
+        specialVars['nauticalDark'] = true;
+    }
+
+    if (moment().isBetween(items['sunrise'], items['sunset'])) {
+        specialVars['civilDark'] = false;
+    } else {
+        specialVars['civilDark'] = true;
+    }
+
+    for (var key in specialVars) {
+        callback.call(specialVars, key, specialVars[key]);
+    }
 }
