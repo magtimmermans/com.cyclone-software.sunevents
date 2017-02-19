@@ -23,6 +23,9 @@ Sun Events is an app the has several triggers to certain positions of the sun. I
 
 ## Change Log:
 
+### v 0.1.6
+fixed compare bug
+
 ### v 0.1.5
 Added global var TAGS and three general tags:
  - Astronomical Dark

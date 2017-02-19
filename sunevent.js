@@ -277,7 +277,10 @@ const SunEvent = module.exports = function SunEvent() {
         }
 
         var check = function() {
-            var delta = selfie.activeTriggers[0].compare();
+            var delta = 0;
+            if (typeof selfie.activeTriggers[0] != 'undefined') {
+                delta = selfie.activeTriggers[0].compare();
+            }
             if (delta > 60) {
                 //  console.log('check');
                 selfie._timer_id = setTimeout(check, 60 * 1000);
