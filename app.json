@@ -99,6 +99,25 @@
                     }
                 }
             ]
+        },{
+            "id": "cond_sun_event_time",
+            "title": {
+                "en": "It !{{is|isn't}} after ",
+                "nl": "Het !{{is|is niet}} na "
+            },
+            "args": [{
+                    "name": "event",
+                    "type": "autocomplete",
+                    "placeholder": {
+                        "en": "Event",
+                        "nl": "Event"
+                    }
+                },
+                {
+                    "name": "time",
+                    "type": "time"
+                }
+            ]
         }]
 
     }
