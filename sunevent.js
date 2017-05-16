@@ -165,23 +165,19 @@ const SunEvent = module.exports = function SunEvent() {
 
         Homey.manager('flow').on('condition.cond_sun_event_time', function(callback, args, state) {
             var times = args.time.split(':');
-            if(times.length === 2) {
-	            var today = new Date();
-				today = new Date(today.getFullYear(), today.getMonth(), today.getDate(), times[0], times[1], 0, 0);
-		        var eventTimes = selfie.getTimes(false);
-		        var d = eventTimes[args.event.id];
+            var today = new Date();
+			today = new Date(today.getFullYear(), today.getMonth(), today.getDate(), times[0], times[1], 0, 0);
+	        var eventTimes = selfie.getTimes(false);
+	        var d = eventTimes[args.event.id];
 
 
-		        var result = ((d.getTime()) >= today.getTime());
-		        console.log('Event:' + padding_right(args.event.id, ' ', 17) +
-	            'Date:' + padding_right(moment(d).format('LLL'), ' ', 20) +
-	            'result:' + result);
+	        var result = ((d.getTime()) >= today.getTime());
+	        console.log('Event:' + padding_right(args.event.id, ' ', 17) +
+            'Date:' + padding_right(moment(d).format('LLL'), ' ', 20) +
+            'result:' + result);
 
 
-				callback(null, result);
-            } else {
-	            callback('Invalid time', false);
-            }
+			callback(null, result);
         });
 
 
