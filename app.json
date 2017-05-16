@@ -1,7 +1,8 @@
 {
     "id": "com.cyclone-software.sunevents",
     "name": {
-        "en": "Sun Events"
+        "en": "Sun Events",
+        "nl": "Zonnestanden"
     },
     "description": {
         "en": "Triggers you at certain positions of the sun.",
