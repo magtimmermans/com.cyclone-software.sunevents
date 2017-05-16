@@ -1,7 +1,8 @@
 {
     "id": "com.cyclone-software.sunevents",
     "name": {
-        "en": "Sun Events"
+        "en": "Sun Events",
+        "nl": "Zonnestanden"
     },
     "description": {
         "en": "Triggers you at certain positions of the sun.",
@@ -97,6 +98,25 @@
                         "en": "Offset in minutes",
                         "nl": "Offset in minuten"
                     }
+                }
+            ]
+        },{
+            "id": "cond_sun_event_time",
+            "title": {
+                "en": "It !{{is|isn't}} after ",
+                "nl": "Het !{{is|is niet}} na "
+            },
+            "args": [{
+                    "name": "event",
+                    "type": "autocomplete",
+                    "placeholder": {
+                        "en": "Event",
+                        "nl": "Event"
+                    }
+                },
+                {
+                    "name": "time",
+                    "type": "time"
                 }
             ]
         }]

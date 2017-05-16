@@ -125,6 +125,27 @@ const SunEvent = module.exports = function SunEvent() {
             callback(null, myItems); // err, results
         });
 
+         Homey.manager('flow').on('condition.cond_sun_event_time.event.autocomplete', function(callback, args) {
+            // console.log('autocomplete');
+            // console.log(args);
+
+            var myItems = [];
+
+            var items = Object.keys(sunsetSchedules);
+            items.forEach(function(item) {
+                var e = {};
+                e.name = selfie.getSunsetScheduleName(item);
+                e.id = item;
+                myItems.push(e);
+            });
+
+            myItems.sort(autocompleteSorter);
+            // console.log(myItems);
+
+            callback(null, myItems); // err, results
+        });
+
+
         Homey.manager('flow').on('trigger.sun_event', function(callback, args, state) {
             if (args.event.id == state.event && args.offset == state.offset) {
                 callback(null, true);
@@ -134,12 +155,31 @@ const SunEvent = module.exports = function SunEvent() {
             return;
         });
 
+
         Homey.manager('flow').on('condition.cond_sun_event', function(callback, args, state) {
             //  Homey.log('condition');
             //  Homey.log(args);
             var result = selfie.testEvent(args.event.id, args.offset);
             callback(null, result);
         });
+
+        Homey.manager('flow').on('condition.cond_sun_event_time', function(callback, args, state) {
+            var times = args.time.split(':');
+            var today = new Date();
+			today = new Date(today.getFullYear(), today.getMonth(), today.getDate(), times[0], times[1], 0, 0);
+	        var eventTimes = selfie.getTimes(false);
+	        var d = eventTimes[args.event.id];
+
+
+	        var result = ((d.getTime()) >= today.getTime());
+	        console.log('Event:' + padding_right(args.event.id, ' ', 17) +
+            'Date:' + padding_right(moment(d).format('LLL'), ' ', 20) +
+            'result:' + result);
+
+
+			callback(null, result);
+        });
+
 
         Homey.manager('settings').on('set', function(action) {
             Homey.log('sunset:settings changed');
@@ -149,7 +189,7 @@ const SunEvent = module.exports = function SunEvent() {
                     // if (result) {
                     selfie.sunEvents = selfie.getTimes(true);
                     selfie.registerTriggers();
-                    // }   
+                    // }
                 });
             }
         });
