@@ -23,9 +23,10 @@ var sunsetSchedules = {
 }
 
 var specialVariables = {
-    'astronomicalDark': { ename: 'Astronomical Dark', nlname: 'Astronomisch Donker' },
-    'nauticalDark': { ename: 'Nautical Dark', nlname: 'Nautische Donker' },
-    'civilDark': { ename: 'Civil Dark', nlname: 'Schemering' },
+    'astronomicalDark': { ename: 'Astronomical Dark', nlname: 'Astronomisch Donker', type: 'boolean' },
+    'nauticalDark': { ename: 'Nautical Dark', nlname: 'Nautische Donker', type: 'boolean'},
+    'civilDark': { ename: 'Civil Dark', nlname: 'Schemering', type: 'boolean' },
+    'azimuth': { ename: 'Azimuth', nlname: 'Azimuth', type: 'string' },    
 }
 
 
@@ -371,10 +372,10 @@ const SunEvent = module.exports = function SunEvent() {
                 tokens.push(token);
             });
         })
-        GetSpecialVars(selfie.sunEvents, function(key, value) {
+        GetSpecialVars(selfie.sunEvents, this.lat, this.lon, function(key, value) {
             var name = (lang == 'nl' ? specialVariables[key].nlname : specialVariables[key].ename)
             Homey.manager('flow').registerToken(key, {
-                type: 'boolean',
+                type: specialVariables[key].type,
                 title: name
             }, function(err, token) {
                 if (err) return console.error('registerToken error:', err);
@@ -400,7 +401,7 @@ const SunEvent = module.exports = function SunEvent() {
     }
 
     this.updateSpecialVars = function() {
-        GetSpecialVars(selfie.sunEvents, function(key, value) {
+        GetSpecialVars(selfie.sunEvents, this.lat, this.lon, function(key, value) {
             console.log(key);
             console.log(value);
             var token = specialTokens.filter(function(value) { return value.id == key; })
@@ -412,6 +413,7 @@ const SunEvent = module.exports = function SunEvent() {
                     });
             }
         })
+        
     }
 
     this.getSunsetScheduleName = function(id) {
@@ -532,7 +534,7 @@ function bySortedValue(obj, callback, context) {
     while (length--) callback.call(items, items[length][0], items[length][1]);
 }
 
-function GetSpecialVars(items, callback) {
+function GetSpecialVars(items, lat, lon, callback) {
     var specialVars = {};
     var now = moment();
     if (moment().isBetween(items['nauticalDawn'], items['nauticalDusk'])) {
@@ -552,6 +554,13 @@ function GetSpecialVars(items, callback) {
     } else {
         specialVars['civilDark'] = true;
     }
+    
+    var sunrisePos = SunCalc.getPosition(items['sunrise'], lat,lon);
+    var sunriseAzimuth = sunrisePos.azimuth * 180 / Math.PI;
+    if (sunriseAzimuth<0)
+       sunriseAzimuth=360+sunriseAzimuth;
+    console.log('sunriseAzimuth' + sunriseAzimuth);
+    specialVars['azimuth'] = Math.round(sunriseAzimuth).toString();
 
     for (var key in specialVars) {
         callback.call(specialVars, key, specialVars[key]);
