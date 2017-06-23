@@ -26,7 +26,8 @@ var specialVariables = {
     'astronomicalDark': { ename: 'Astronomical Dark', nlname: 'Astronomisch Donker', type: 'boolean' },
     'nauticalDark': { ename: 'Nautical Dark', nlname: 'Nautische Donker', type: 'boolean'},
     'civilDark': { ename: 'Civil Dark', nlname: 'Schemering', type: 'boolean' },
-    'azimuth': { ename: 'Azimuth', nlname: 'Azimuth', type: 'string' },    
+    'azimuth': { ename: 'Azimuth', nlname: 'Azimuth', type: 'number' },
+    'altitude' : { ename: 'Altitude', nlname: 'Hoogte', type: 'number' },
 }
 
 
@@ -555,12 +556,11 @@ function GetSpecialVars(items, lat, lon, callback) {
         specialVars['civilDark'] = true;
     }
     
-    var sunrisePos = SunCalc.getPosition(items['sunrise'], lat,lon);
+    var sunrisePos = SunCalc.getPosition(now, lat,lon);
     var sunriseAzimuth = sunrisePos.azimuth * 180 / Math.PI;
-    if (sunriseAzimuth<0)
-       sunriseAzimuth=360+sunriseAzimuth;
-    console.log('sunriseAzimuth' + sunriseAzimuth);
-    specialVars['azimuth'] = Math.round(sunriseAzimuth).toString();
+    sunriseAzimuth=180+sunriseAzimuth;
+    specialVars['azimuth'] = Math.round(sunriseAzimuth);
+    specialVars['altitude'] =  Math.round(sunrisePos.altitude * 180 / Math.PI);
 
     for (var key in specialVars) {
         callback.call(specialVars, key, specialVars[key]);

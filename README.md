@@ -23,6 +23,9 @@ Sun Events is an app the has several triggers to certain positions of the sun. I
 
 ## Change Log:
 
+### v 0.1.8
+ Added Altitude as TAG for the sun Angle (0..90 degrees) and corrected Azimuth angle (in degrees (0 North, 180 South)
+
 ### v 0.1.7
  Added Azimuth angle (in degrees) as tag, some bug fixes and dutch translation of the programname
 
