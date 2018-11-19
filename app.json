@@ -1,5 +1,6 @@
 {
     "id": "com.cyclone-software.sunevents",
+    "sdk": 2,
     "name": {
         "en": "Sun Events",
         "nl": "Zonnestanden"
@@ -13,8 +14,8 @@
         "large": "./assets/images/large.jpg",
         "small": "./assets/images/small.jpg"
     },
-    "version": "0.1.8",
-    "compatibility": ">=1.1.2",
+    "version": "0.2.0",
+    "compatibility": ">=1.5.0",
     "author": {
         "name": "Marcel Timmermans",
         "email": "marcel@timmermans.us"
@@ -62,10 +63,10 @@
                 {
                     "name": "offset",
                     "type": "number",
-                    "min": "-60",
-                    "max": "60",
-                    "step": "1",
-                    "value": "0",
+                    "min": -60,
+                    "max": 60,
+                    "step": 1,
+                    "value": 0,
                     "placeholder": {
                         "en": "Offset in minutes",
                         "nl": "Offset in minuten"
@@ -90,10 +91,10 @@
                 {
                     "name": "offset",
                     "type": "number",
-                    "min": "-60",
-                    "max": "60",
-                    "step": "1",
-                    "value": "0",
+                    "min": -60,
+                    "max": 60,
+                    "step": 1,
+                    "value": 0,
                     "placeholder": {
                         "en": "Offset in minutes",
                         "nl": "Offset in minuten"
@@ -117,6 +118,29 @@
                 {
                     "name": "time",
                     "type": "time"
+                }
+            ]
+        },{
+            "id": "cond_sun_event_between",
+            "title": {
+                "en": "It !{{is|isn't}} between ",
+                "nl": "Het !{{is|is niet}} tussen "
+            },
+            "args": [{
+                    "name": "eventA",
+                    "type": "autocomplete",
+                    "placeholder": {
+                        "en": "Event",
+                        "nl": "Event"
+                    }
+                },
+                {
+                    "name": "eventB",
+                    "type": "autocomplete",
+                    "placeholder": {
+                        "en": "Event",
+                        "nl": "Event"
+                    }
                 }
             ]
         }]

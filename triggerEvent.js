@@ -4,7 +4,9 @@ const moment = require("moment");
 const TriggerEvent = function(id, when, offset) {
     const self = this;
 
-    //console.log(when);
+   // console.log(id);
+   // console.log(when);
+   // console.log(offset);
 
     // if no date give get todays date
     var dt_now = new Date();
