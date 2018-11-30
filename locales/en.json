@@ -1,8 +1,8 @@
 {
  "personalEvents": "Here you can define your own person Events. The events are based on degrees of the sun and you need to set the rise and set name.",
- "mysunevents" : "My Sun Events",
- "eventTimes" : "Event Times",
- "triggerTimes" : "Trigger Times",
+ "mysunevents" : "My Events",
+ "eventTimes" : "Times",
+ "triggerTimes" : "Triggers",
  "riseName" : "Rise Name",
  "setName" : "Set Name",
  "degrees" : "Degrees (-90..90)",

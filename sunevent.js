@@ -106,9 +106,9 @@ const SunEvent = module.exports = function SunEvent() {
         // When cards will be updated
         sunEventTrigger
             .registerRunListener((args,state) => {
-                console.log('listener trigger card fired');
-                console.log(args);
-                console.log(state);
+               // console.log('listener trigger card fired');
+               // console.log(args);
+               // console.log(state);
 
                 if (args.event.id == state.event && args.offset == state.offset) {
                     return Promise.resolve(true)
@@ -131,16 +131,16 @@ const SunEvent = module.exports = function SunEvent() {
             sunEventCond
                 .register()
                 .registerRunListener(( args, state ) => {
-                    console.log('sun event listner');
-                    console.log(args);
-                    console.log(state);
+                   // console.log('sun event listner');
+                   // console.log(args);
+                   // console.log(state);
                     var result = selfie.testEvent(args.event.id, args.offset);
                     return Promise.resolve( result );
                 })
                 .getArgument('event')
                 .registerAutocompleteListener(( query, args ) => {
-                    console.log('autocomplete trigger');
-                    console.log(args);
+                   // console.log('autocomplete trigger');
+                   // console.log(args);
                     return Promise.resolve(selfie.GetEventItems());
                 })
 
@@ -148,8 +148,8 @@ const SunEvent = module.exports = function SunEvent() {
             sunEventCondTime
                 .register()
                 .registerRunListener(( args, state ) => {
-                    console.log('sun event listner');
-                    console.log(args);
+                   // console.log('sun event listner');
+                   // console.log(args);
                     var times = args.time.split(':');
                     var today = new Date();
                     today = new Date(today.getFullYear(), today.getMonth(), today.getDate(), times[0], times[1], 0, 0);
@@ -198,69 +198,34 @@ const SunEvent = module.exports = function SunEvent() {
             sunEventBetween
                 .getArgument('eventA')
                 .registerAutocompleteListener(( query, args ) => {
-                    console.log('autocomplete trigger');
-                    console.log(args);
+                   // console.log('autocomplete trigger');
+                   // console.log(args);
                     return Promise.resolve(selfie.GetEventItems());
                 })
 
             sunEventBetween
                 .getArgument('eventB')
                 .registerAutocompleteListener(( query, args ) => {
-                    console.log('autocomplete trigger');
-                    console.log(args);
+                   // console.log('autocomplete trigger');
+                   // console.log(args);
                     return Promise.resolve(selfie.GetEventItems());
                 })
             
 
-        // Homey.manager('flow').on('trigger.sun_event', function(callback, args, state) {
-        //     if (args.event.id == state.event && args.offset == state.offset) {
-        //         callback(null, true);
-        //     } else {
-        //         callback(null, false); // true to make the flow continue, or false to abort
-        //     }
-        //     return;
-        // });
-
-
-        // Homey.manager('flow').on('condition.cond_sun_event', function(callback, args, state) {
-        //     Homey.log('condition');
-        //     Homey.log(args);
-        //     var result = selfie.testEvent(args.event.id, args.offset);
-        //     callback(null, result);
-        // });
-
-        // Homey.manager('flow').on('condition.cond_sun_event_time', function(callback, args, state) {
-        //     var times = args.time.split(':');
-        //     var today = new Date();
-		// 	today = new Date(today.getFullYear(), today.getMonth(), today.getDate(), times[0], times[1], 0, 0);
-	    //     var eventTimes = selfie.getTimes(false);
-	    //     var d = eventTimes[args.event.id];
-
-
-	    //     var result = ((d.getTime()) >= today.getTime());
-	    //     console.log('Event:' + padding_right(args.event.id, ' ', 17) +
-        //     'Date:' + padding_right(moment(d).format('LLL'), ' ', 20) +
-        //     'result:' + result);
-
-
-		// 	callback(null, result);
-        // });
-
-
         // Show which settings are saved
-        let keys = Homey.ManagerSettings.getKeys();
-        console.log(keys);
-        // show what is in it
-        keys.forEach(key => {
-            console.log(key);
-            console.log(Homey.ManagerSettings.get(key));
-        });
+        // let keys = Homey.ManagerSettings.getKeys();
+        // console.log(keys);
+        // // show what is in it
+        // keys.forEach(key => {
+        //     console.log(key);
+        //     console.log(Homey.ManagerSettings.get(key));
+        // });
 
 
         //Get update settings
         Homey.ManagerSettings.on('set', (key) => {
-            console.log('Update Settings:');    
-            console.log(key);
+           // console.log('Update Settings:');    
+           // console.log(key);
             if (key == 'myEvents') {
                     selfie.LoadMyEvents(function(result) {
                         // if (result) {
@@ -318,36 +283,6 @@ const SunEvent = module.exports = function SunEvent() {
              console.log(selfie.activeTriggers);
         });
 
-
-        // Homey.manager('flow').getTriggerArgs('sun_event', (err, triggers) => {
-        //     if (!err && triggers) {
-
-        //         selfie.activeTriggers = [];
-
-        //         // Loop over triggers
-        //         triggers.forEach(trigger => {
-
-        //             // Homey.log(trigger);
-
-        //             // Check if all args are valid and present
-        //             if (trigger && trigger.hasOwnProperty('event') && trigger.hasOwnProperty('offset')) {
-
-        //                 selfie.scheduleTrigger(trigger);
-        //             }
-        //         });
-
-        //         var myTriggerTimesFormated = {};
-        //         selfie.activeTriggers.forEach(function(item) {
-        //             var e = {};
-        //             e.name = selfie.getSunsetScheduleName(item.id);
-        //             e.date = moment.unix(item.theTime.epoch).format('LLL');
-        //             myTriggerTimesFormated[item.id] = e;
-        //         });
-        //         console.log('trigger');
-        //        // Homey.manager("settings").set('myTriggerTimes', myTriggerTimesFormated);
-        //     }
-        //      Homey.log(activeTriggers);
-        // });
     }
 
     this.scheduleTrigger = function(trigger) {
@@ -379,6 +314,7 @@ const SunEvent = module.exports = function SunEvent() {
     this.execute = function(te) {
         console.log('#######################################################')
         console.log('execute:' + te.id);
+        console.log(te.theTime);
         var tokens = { 'event': selfie.getSunsetScheduleName(te.id), 'se_time': moment.unix(te.theTime.epoch).format('LT'), 'se_date': moment.unix(te.theTime.epoch).format('L') };
         var state = { 'event': te.id, 'offset': te.theTime.offset };
         console.log(tokens);
