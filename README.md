@@ -23,6 +23,9 @@ Sun Events is an app the has several triggers to certain positions of the sun. I
 
 ## Change Log:
 
+### v 0.2.1
+In case the calculated date gives an invalid date, this will be represented as Thu Jan 01 1970 01:00:00.
+
 ### v 0.2.0
  Rewrite to SDK V2.0. Added between to events condition card.
 
