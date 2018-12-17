@@ -18,10 +18,15 @@ Sun Events is an app the has several triggers to certain positions of the sun. I
 - dawn (morning nautical twilight ends, morning civil twilight starts)
 - Options to put your own set/rise position of the sun
 
+On every card you can fill in a offset in minutes between -60 and 60. This to delay or speed-up for example the sunset time.
+
 ## TO-DO
 - Automatic refresh of settings page when events/triggers are refreshed.
 
 ## Change Log:
+
+### v 0.2.2
+Small changes and add some text to the README file.
 
 ### v 0.2.1
 In case the calculated date gives an invalid date, this will be represented as Thu Jan 01 1970 01:00:00.

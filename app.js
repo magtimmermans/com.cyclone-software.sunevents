@@ -28,18 +28,13 @@ function setLocation(callback) {
         var err=false;
         var lat = Homey.ManagerGeolocation.getLatitude();
         var lon = Homey.ManagerGeolocation.getLongitude();
-        console.log(lat);
-        console.log(lon);
         api.setLatLon(lat, lon);
     }
     catch (e) {
         err=true;
-        console.log("entering catch block");
         console.log(e);
-        console.log("leaving catch block");
     }
     finally {
-       console.log("entering and leaving the finally block");
        if (callback) 
           callback(err);
     }

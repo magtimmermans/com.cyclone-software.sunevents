@@ -314,7 +314,7 @@ const SunEvent = module.exports = function SunEvent() {
     this.execute = function(te) {
         console.log('#######################################################')
         console.log('execute:' + te.id);
-        console.log(te.theTime);
+       // console.log(te.theTime);
         var tokens = { 'event': selfie.getSunsetScheduleName(te.id), 'se_time': moment.unix(te.theTime.epoch).format('LT'), 'se_date': moment.unix(te.theTime.epoch).format('L') };
         var state = { 'event': te.id, 'offset': te.theTime.offset };
         console.log(tokens);
