@@ -3,11 +3,13 @@
     "sdk": 2,
     "name": {
         "en": "Sun Events",
-        "nl": "Zonnestanden"
+        "nl": "Zonnestanden",
+        "de": "Solareinstellungen"
     },
     "description": {
         "en": "Triggers you at certain positions of the sun.",
-        "nl": "Bij diverse zonnestanden kunt u triggers maken, u kunt ook uw eigen events defineren."
+        "nl": "Bij diverse zonnestanden kunt u triggers maken, u kunt ook uw eigen events defineren.",
+        "de": "Löst dich an bestimmten Positionen der Sonne aus."
     },
     "category": "tools",
     "images": {
@@ -36,27 +38,31 @@
             "id": "sun_event",
             "title": {
                 "en": "Sun Events (offset in min)",
-                "nl": "Zonnestanden events (offset in min)"
+                "nl": "Zonnestanden events (offset in min)",
+                "de": "Sonnenereignisse (Offset in Min)"
             },
             "tokens": [{
                     "name": "event",
                     "title": {
                         "en": "Event",
-                        "nl": "Event"
+                        "nl": "Event",
+                        "de": "Veranstaltung"
                     }
                 },
                 {
                     "name": "se_time",
                     "title": {
                         "en": "Time",
-                        "nl": "Tijd"
+                        "nl": "Tijd",
+                        "de": "Zeit"
                     }
                 },
                 {
                     "name": "se_date",
                     "title": {
                         "en": "Date",
-                        "nl": "Datum"
+                        "nl": "Datum",
+                        "de": "Datum"
                     }
                 }
             ],
@@ -65,7 +71,8 @@
                     "type": "autocomplete",
                     "placeholder": {
                         "en": "Event",
-                        "nl": "Event"
+                        "nl": "Event",
+                        "de": "Veranstaltung"
                     }
                 },
                 {
@@ -77,7 +84,8 @@
                     "value": 0,
                     "placeholder": {
                         "en": "Offset in minutes",
-                        "nl": "Offset in minuten"
+                        "nl": "Offset in minuten",
+                        "de": "Offset in minuten"
                     }
                 }
             ]
@@ -86,14 +94,16 @@
             "id": "cond_sun_event",
             "title": {
                 "en": "It !{{is|isn't}} after ",
-                "nl": "Het !{{is|is niet}} na "
+                "nl": "Het !{{is|is niet}} na ",
+                "de": "Es !{{ist|ist nicht }} nach "
             },
             "args": [{
                     "name": "event",
                     "type": "autocomplete",
                     "placeholder": {
                         "en": "Event",
-                        "nl": "Event"
+                        "nl": "Event",
+                        "de": "Veranstaltung"
                     }
                 },
                 {
@@ -105,7 +115,8 @@
                     "value": 0,
                     "placeholder": {
                         "en": "Offset in minutes",
-                        "nl": "Offset in minuten"
+                        "nl": "Offset in minuten",
+                        "de": "Offset in minuten"
                     }
                 }
             ]
@@ -113,14 +124,16 @@
             "id": "cond_sun_event_time",
             "title": {
                 "en": "It !{{is|isn't}} after ",
-                "nl": "Het !{{is|is niet}} na "
+                "nl": "Het !{{is|is niet}} na ",
+                "de": "Es !{{ist|ist nicht }} nach "
             },
             "args": [{
                     "name": "event",
                     "type": "autocomplete",
                     "placeholder": {
                         "en": "Event",
-                        "nl": "Event"
+                        "nl": "Event",
+                        "de": "Veranstaltung"
                     }
                 },
                 {
@@ -132,14 +145,16 @@
             "id": "cond_sun_event_between",
             "title": {
                 "en": "It !{{is|isn't}} between ",
-                "nl": "Het !{{is|is niet}} tussen "
+                "nl": "Het !{{is|is niet}} tussen ",
+                "de": "Es !{{ist|ist nicht }} zwischen "
             },
             "args": [{
                     "name": "eventA",
                     "type": "autocomplete",
                     "placeholder": {
                         "en": "Event",
-                        "nl": "Event"
+                        "nl": "Event",
+                        "de": "Veranstaltung"
                     }
                 },
                 {
@@ -147,7 +162,8 @@
                     "type": "autocomplete",
                     "placeholder": {
                         "en": "Event",
-                        "nl": "Event"
+                        "nl": "Event",
+                        "de": "Veranstaltung"
                     }
                 }
             ]

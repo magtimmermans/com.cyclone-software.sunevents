@@ -8,30 +8,29 @@ var specialTokens = [];
 const Homey = require('homey');
 
 var sunsetSchedules = {
-    'solarNoon': { ename: 'Solar Noon', nlname: 'Hoogste zonnestand', p: true },
-    'nadir': { ename: 'Nadir', nlname: 'Donkerste moment van de nacht', p: true },
-    'sunrise': { ename: 'Sunrise', nlname: 'Zonsopgang', p: true },
-    'sunset': { ename: 'Sunset', nlname: 'Zonsondergang', p: true },
-    'sunriseEnd': { ename: 'Sunrise ends', nlname: 'Einde Zonsopgang', p: true },
-    'sunsetStart': { ename: 'Sunset starts', nlname: 'Begin Zonsondergang', p: true },
-    'dawn': { ename: 'Dawn', nlname: 'Ochtendschemering', p: true },
-    'dusk': { ename: 'Dusk', nlname: 'Avondschemering', p: true },
-    'nauticalDawn': { ename: 'Nautical dawn', nlname: 'Nautische schemering Ochtend', p: true },
-    'nauticalDusk': { ename: 'Nautical dusk', nlname: 'Nautische schemering Avond', p: true },
-    'nightEnd': { ename: 'Night ends', nlname: 'Einde Nacht', p: true },
-    'night': { ename: 'Night starts', nlname: 'Nacht begint', p: true },
-    'goldenHourEnd': { ename: 'Morning golden hour  ends', nlname: 'Einde Ochtend gouden uur', p: true },
-    'goldenHour': { ename: 'Evening golden hour starts', nlname: 'Begin avond gouden uur', p: true }
+    'solarNoon': { p: true },
+    'nadir': { p: true },
+    'sunrise': { p: true },
+    'sunset': { p: true },
+    'sunriseEnd': { p: true },
+    'sunsetStart': { p: true },
+    'dawn': { p: true },
+    'dusk': { p: true },
+    'nauticalDawn': { p: true },
+    'nauticalDusk': { p: true },
+    'nightEnd': { p: true },
+    'night': { p: true },
+    'goldenHourEnd': { p: true },
+    'goldenHour': { p: true }
 }
 
 var specialVariables = {
-    'astronomicalDark': { ename: 'Astronomical Dark', nlname: 'Astronomisch Donker', type: 'boolean' },
-    'nauticalDark': { ename: 'Nautical Dark', nlname: 'Nautische Donker', type: 'boolean'},
-    'civilDark': { ename: 'Civil Dark', nlname: 'Schemering', type: 'boolean' },
-    'azimuth': { ename: 'Azimuth', nlname: 'Azimuth', type: 'number' },
-    'altitude' : { ename: 'Altitude', nlname: 'Hoogte', type: 'number' },
+    'astronomicalDark': { type: 'boolean' },
+    'nauticalDark': { type: 'boolean'},
+    'civilDark': { type: 'boolean' },
+    'azimuth': { type: 'number' },
+    'altitude' : { type: 'number' },
 }
-
 
 var trigger_sorter = function(a, b) {
     return a.compare(b);
@@ -51,8 +50,6 @@ const SunEvent = module.exports = function SunEvent() {
         return new SunEvent();
     }
 };
-
-
 
 (function() {
 
@@ -518,8 +515,10 @@ const SunEvent = module.exports = function SunEvent() {
     }
 
     this.getSunsetScheduleName = function(id) {
+        console.log(Homey.__("sunsetSchedules." + id))
+        return Homey.__("sunsetSchedules." + id)
         // maybe this can be smarter using localization strings
-        return (lang == 'nl' ? sunsetSchedules[id].nlname : sunsetSchedules[id].ename);
+        // return (lang == 'nl' ? sunsetSchedules[id].nlname : sunsetSchedules[id].ename);
     }
 
     this.testEvent = function(id, offset) {
@@ -610,7 +609,6 @@ const SunEvent = module.exports = function SunEvent() {
     };
 
 }).call(SunEvent.prototype);
-
 
 // needed for testing
 function randomInt(low, high) {

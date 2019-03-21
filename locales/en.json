@@ -12,5 +12,30 @@
  "addRow" : "Add Row",
  "del" : "Delete",
  "eventTimesIntro" : "An overview of all possible events you can use in the trigger/condition.",
- "triggerTimesIntro" : "An overview of all active triggers."
+ "triggerTimesIntro" : "An overview of all active triggers.",
+ "sunsetSchedules":
+    {
+        "solarNoon": "Solar Noon",
+        "nadir": "Nadir",
+        "sunrise": "Sunrise",
+        "sunset": "Sunset",
+        "sunriseEnd": "Sunrise ends",
+        "sunsetStart": "Sunset starts",
+        "dawn": "Dawn",
+        "dusk": "Dusk",
+        "nauticalDawn": "Nautical dawn",
+        "nauticalDusk": "Nautical dusk",
+        "nightEnd": "Night ends",
+        "night": "Night starts",
+        "goldenHourEnd": "Morning golden hour  ends",
+        "goldenHour": "Evening golden hour starts"
+    },
+"specialVariables":
+    {
+        "astronomicalDark": "Astronomical Dark",
+        "nauticalDark": "Nautical Dark",
+        "civilDark": "Civil Dark",
+        "azimuth": "Azimuth",
+        "altitude" : "Altitude"
+    }
 }

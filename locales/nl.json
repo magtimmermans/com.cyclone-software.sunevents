@@ -12,5 +12,30 @@
  "addRow" : "Regel toevoegen",
  "del" : "Verwijderen",
  "eventTimesIntro" : "Een overzicht van alle mogelijke gebeurtinissen die je kan gebruiken in 'Als..' en 'En..' in de workflow",
- "triggerTimesIntro" : "Een overzicht van alle active 'Als..' (triggers) gebeurtenissen."
+ "triggerTimesIntro" : "Een overzicht van alle active 'Als..' (triggers) gebeurtenissen.",
+ "sunsetSchedules":
+    {
+        "solarNoon": "Hoogste zonnestand",
+        "nadir": "Donkerste moment van de nacht",
+        "sunrise": "Zonsopgang",
+        "sunset": "Zonsondergang",
+        "sunriseEnd":  "Einde Zonsopgang",
+        "sunsetStart": "Begin Zonsondergang",
+        "dawn": "Ochtendschemering",
+        "dusk": "Avondschemering",
+        "nauticalDawn": "Nautische schemering Ochtend",
+        "nauticalDusk": "Nautische schemering Avond",
+        "nightEnd": "Einde Nacht",
+        "night": "Nacht begint",
+        "goldenHourEnd": "Einde Ochtend gouden uur",
+        "goldenHour": "Begin avond gouden uur"
+    },
+"specialVariables":
+    {
+        "astronomicalDark": "Astronomisch Donker",
+        "nauticalDark": "Nautische Donker",
+        "civilDark": "Schemering",
+        "azimuth": "Azimuth",
+        "altitude" : "Hoogte"
+    }
 }
