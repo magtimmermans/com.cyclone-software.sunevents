@@ -17,7 +17,7 @@
         "small": "./assets/images/small.jpg"
     },
     "brandColor": "#E8461D",
-    "version": "0.2.3",
+    "version": "0.2.4",
     "compatibility": ">=2.0.0",
     "contributing": {
         "donate": {
@@ -30,6 +30,9 @@
         "name": "Marcel Timmermans",
         "email": "marcel@timmermans.us"
     },
+    "contributors": {
+		"translators": [{"name": "🇬🇧 Marcel Timmermans"},{"name": "🇳🇱 Marcel Timmermans"},{"name": "🇩🇪 Philipp Schnittger"}]
+	},
     "permissions": [
         "homey:manager:geolocation"
     ],

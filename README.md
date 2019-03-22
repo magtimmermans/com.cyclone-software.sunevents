@@ -25,6 +25,9 @@ On every card you can fill in a offset in minutes between -60 and 60. This to de
 
 ## Change Log:
 
+### v 0.2.4
+Improved multi language support and added German translation.
+
 ### v 0.2.2
 Small changes and add some text to the README file.
 
