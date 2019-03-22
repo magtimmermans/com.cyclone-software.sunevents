@@ -4,12 +4,12 @@
     "name": {
         "en": "Sun Events",
         "nl": "Zonnestanden",
-        "de": "Solareinstellungen"
+        "de": "Sonnenereignisse"
     },
     "description": {
         "en": "Triggers you at certain positions of the sun.",
         "nl": "Bij diverse zonnestanden kunt u triggers maken, u kunt ook uw eigen events defineren.",
-        "de": "Löst dich an bestimmten Positionen der Sonne aus."
+        "de": "Wird an bestimmten Positionen der Sonne ausgelöst."
     },
     "category": "tools",
     "images": {
@@ -46,7 +46,7 @@
                     "title": {
                         "en": "Event",
                         "nl": "Event",
-                        "de": "Veranstaltung"
+                        "de": "Ereignis"
                     }
                 },
                 {
@@ -72,7 +72,7 @@
                     "placeholder": {
                         "en": "Event",
                         "nl": "Event",
-                        "de": "Veranstaltung"
+                        "de": "Ereignis"
                     }
                 },
                 {
@@ -85,7 +85,7 @@
                     "placeholder": {
                         "en": "Offset in minutes",
                         "nl": "Offset in minuten",
-                        "de": "Offset in minuten"
+                        "de": "Offset in Minuten"
                     }
                 }
             ]
@@ -103,7 +103,7 @@
                     "placeholder": {
                         "en": "Event",
                         "nl": "Event",
-                        "de": "Veranstaltung"
+                        "de": "Ereignis"
                     }
                 },
                 {
@@ -116,7 +116,7 @@
                     "placeholder": {
                         "en": "Offset in minutes",
                         "nl": "Offset in minuten",
-                        "de": "Offset in minuten"
+                        "de": "Offset in Minuten"
                     }
                 }
             ]
@@ -133,7 +133,7 @@
                     "placeholder": {
                         "en": "Event",
                         "nl": "Event",
-                        "de": "Veranstaltung"
+                        "de": "Ereignis"
                     }
                 },
                 {
@@ -154,7 +154,7 @@
                     "placeholder": {
                         "en": "Event",
                         "nl": "Event",
-                        "de": "Veranstaltung"
+                        "de": "Ereignis"
                     }
                 },
                 {
@@ -163,7 +163,7 @@
                     "placeholder": {
                         "en": "Event",
                         "nl": "Event",
-                        "de": "Veranstaltung"
+                        "de": "Ereignis"
                     }
                 }
             ]
