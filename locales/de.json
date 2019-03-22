@@ -4,7 +4,7 @@
  "eventTimes" : "Zeiten",
  "triggerTimes" : "Trigger",
  "riseName" : "Name steigen",
- "setName" : "Set Name",
+ "setName" : "Name fallen lassen",
  "degrees" : "Grad (-90..90)",
  "edit" : "Bearbeiten",
  "save" : "Speichern",
