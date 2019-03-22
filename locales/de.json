@@ -1,22 +1,22 @@
 {
- "personalEvents": "Hier können Sie Ihre persönlichen Ereignisse definieren. Die Ereignisse basieren auf dem Sonnengrad und Sie müssen den Aufstieg und den Namen festlegen.",
+ "personalEvents": "Hier können Sie Ihre persönlichen Ereignisse definieren. Die Ereignisse basieren auf dem Stand der Sonne in Grad und Sie müssen den Sonnenaufgang und den Namen festlegen.",
  "mysunevents" : "Meine Ereignisse",
  "eventTimes" : "Zeiten",
  "triggerTimes" : "Trigger",
- "riseName" : "Name steigen",
- "setName" : "Name fallen lassen",
+ "riseName" : "Name bei Aufgang",
+ "setName" : "Name bei Untergang",
  "degrees" : "Grad (-90..90)",
  "edit" : "Bearbeiten",
  "save" : "Speichern",
  "cancel" : "Abbrechen",
  "addRow" : "Zeile hinzufügen",
  "del" : "Löschen",
- "eventTimesIntro" : "Eine Übersicht aller möglichen Ereignisse, die Sie im flows verwenden können.",
+ "eventTimesIntro" : "Eine Übersicht aller möglichen Ereignisse, die Sie im Flows verwenden können.",
  "triggerTimesIntro" : "Eine Übersicht aller aktiven Trigger.",
  "sunsetSchedules":
     {
-        "solarNoon": "Sonnenmittag",
-        "nadir": "Nadir",
+        "solarNoon": "Sonnenhöchststand",
+        "nadir": "Sonnentiefstpunkt",
         "sunrise": "Sonnenaufgang",
         "sunset": "Sonnenuntergang",
         "sunriseEnd": "Sonnenaufgang endet",
@@ -34,7 +34,7 @@
     {
         "astronomicalDark": "Astronomische Dunkelheit",
         "nauticalDark": "Nautische Dunkelheit",
-        "civilDark": "Civil Dunkelheit",
+        "civilDark": "zivile Dunkelheit",
         "azimuth": "Azimuth",
         "altitude" : "Höhe"
     }
